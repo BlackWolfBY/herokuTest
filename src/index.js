@@ -1,10 +1,10 @@
-var express = require("express");
+const express = require("express");
 // модуль оторы позволяет распарсить данные входящего запроса и поместить их в req.body
-var bodyParser = require("body-parser");
-var url = require("url");
+const bodyParser = require("body-parser");
+const url = require("url");
 
-var app = express();
-var port = 8080;
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // static - middleware функция для работы с файлами
 app.use(express.static("public"));
@@ -23,17 +23,17 @@ app
   .route("/test")
   .get(function (req, res) {
     // чтение параметров GET запроса
-    var data = url.parse(req.url, true).query;
+    const data = url.parse(req.url, true).query;
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(data.text);
   })
   .post(function (req, res) {
     // чтение данных POST запроса
-    var data = req.body.text;
+    const data = req.body.text;
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(data);
   });
 
-app.listen(port, function () {
-  console.log("app running on port " + port);
+app.listen(PORT, function () {
+  console.log("app running on port " + PORT);
 });
